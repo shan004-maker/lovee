@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Love You</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #000;
+      font-family: 'Arial', sans-serif;
+    }
+    .heart-container {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .heart {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      transform: rotate(-45deg);
+      background-color: #e63946;
+      animation: heartbeat 1.5s infinite;
+    }
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      background: #e63946;
+      border-radius: 50%;
+    }
+    .heart::before {
+      top: -75px;
+      left: 0;
+    }
+    .heart::after {
+      top: 0;
+      left: 75px;
+    }
+    .message {
+      margin-top: 60px;
+      font-size: 2rem;
+      color: #fff;
+      
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      animation: fadeIn 2s forwards, glow 1.5s infinite alternate;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      color: white;
+      background-color: #007BFF;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    @keyframes heartbeat {
+      0%, 100% {
+        transform: scale(1) rotate(-45deg);
+      }
+      50% {
+        transform: scale(1.2) rotate(-45deg);
+      }
+    }
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+    @keyframes glow {
+      0% {
+        text-shadow: 0 0 10px #ff007f, 0 0 20px #ff007f, 0 0 30px #ff007f;
+      }
+      100% {
+        text-shadow: 0 0 20px #ff007f, 0 0 40px #ff007f, 0 0 50px #ff007f;
+      }
+    }
+    .by{color: #fff;
+      margin-top: 10px;
+      
+
+
+    }
+  </style>
+</head>
+<body>
+  <div class="heart-container" id="heartContainer">
+    <div class="heart"></div>
+    <div class="message">Love You </div>
+  </div>
+  
+  <button onclick="showHeart()">Click to Show Love</button>
+</div>
+<div class="by"> by shan kota</div>
+
+  <script>
+    function showHeart() {
+      const heartContainer = document.getElementById('heartContainer');
+      heartContainer.style.display = 'flex';
+    }
+  </script>
+</body>
+</html>
