@@ -15,12 +15,15 @@
       min-height: 100vh;
       background-color: #000;
       font-family: 'Arial', sans-serif;
+      overflow: hidden;
     }
     .heart-container {
       display: none;
       justify-content: center;
       align-items: center;
       flex-direction: column;
+      opacity: 0;
+      animation: heartAppear 2s ease-out forwards;
     }
     .heart {
       position: relative;
@@ -28,7 +31,7 @@
       height: 150px;
       transform: rotate(-45deg);
       background-color: #e63946;
-      animation: heartbeat 1.5s infinite;
+      animation: heartAnimation 2s ease-out forwards;
     }
     .heart::before,
     .heart::after {
@@ -48,14 +51,14 @@
       left: 75px;
     }
     .message {
-      margin-top: 60px;
+      margin-top: 45px;
       font-size: 2rem;
-      color: #fff;
-      
+      color: #ff00d0;
       text-align: center;
       text-transform: uppercase;
       letter-spacing: 3px;
       animation: fadeIn 2s forwards, glow 1.5s infinite alternate;
+      color: gold;
     }
     button {
       padding: 10px 20px;
@@ -70,15 +73,22 @@
     button:hover {
       background-color: #0056b3;
     }
-    @keyframes heartbeat {
-      0%, 100% {
-        transform: scale(1) rotate(-45deg);
+
+    @keyframes heartAnimation {
+      0% {
+        transform: scale(0) rotate(-45deg);
+        opacity: 0;
       }
       50% {
-        transform: scale(1.2) rotate(-45deg);
+        transform: scale(1.1) rotate(-45deg);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1) rotate(-45deg);
+        opacity: 1;
       }
     }
-    @keyframes fadeIn {
+    @keyframes fadeInText {
       0% {
         opacity: 0;
       }
@@ -86,36 +96,90 @@
         opacity: 1;
       }
     }
-    @keyframes glow {
+    @keyframes heartAppear {
       0% {
-        text-shadow: 0 0 10px #ff007f, 0 0 20px #ff007f, 0 0 30px #ff007f;
+        opacity: 0;
       }
       100% {
-        text-shadow: 0 0 20px #ff007f, 0 0 40px #ff007f, 0 0 50px #ff007f;
+        opacity: 1;
       }
     }
-    .by{color: #fff;
-      margin-top: 10px;
-      
 
+    /* Firework Effect */
+    .firework {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #ff007f;
+      opacity: 0;
+      animation: fireworkAnimation 1s ease-out forwards;
+    }
 
+    @keyframes fireworkAnimation {
+      0% {
+        opacity: 1;
+        transform: scale(0) translate(0, 0);
+      }
+      50% {
+        opacity: 0.7;
+        transform: scale(2) translate(var(--x), var(--y));
+      }
+      100% {
+        opacity: 0;
+        transform: scale(3) translate(var(--x), var(--y));
+      }
+    }
+
+    .by {
+      color: #fff;
+      margin-top: 7px;
+      font-size: 16px;
     }
   </style>
 </head>
 <body>
   <div class="heart-container" id="heartContainer">
     <div class="heart"></div>
-    <div class="message">Love You </div>
+    <div class="message">Love You Sanjana</div>
   </div>
+  <div class="fireworks-container" id="fireworksContainer"></div>
   
   <button onclick="showHeart()">Click to Show Love</button>
-</div>
-<div class="by"> by shan kota</div>
+  
+  <div class="by">by Telshan</div>
 
   <script>
     function showHeart() {
       const heartContainer = document.getElementById('heartContainer');
-      heartContainer.style.display = 'flex';
+      const fireworksContainer = document.getElementById('fireworksContainer');
+
+      // Generate fireworks
+      for (let i = 0; i < 50; i++) {
+        let firework = document.createElement('div');
+        firework.classList.add('firework');
+
+        // Randomize positions and directions for fireworks
+        const xOffset = (Math.random() * 2 - 1) * 200; // Random X direction
+        const yOffset = (Math.random() * 2 - 1) * 200; // Random Y direction
+
+        firework.style.setProperty('--x', `${xOffset}px`);
+        firework.style.setProperty('--y', `${yOffset}px`);
+
+        firework.style.left = `${Math.random() * 100}%`;
+        firework.style.top = `${Math.random() * 100}%`;
+
+        fireworksContainer.appendChild(firework);
+
+        setTimeout(() => {
+          firework.remove();
+        }, 1000); // Remove fireworks after animation
+      }
+
+      // Show heart and message after fireworks animation
+      setTimeout(() => {
+        heartContainer.style.display = 'flex';
+      }, 1000); // Wait for fireworks to complete before showing the heart
     }
   </script>
 </body>
